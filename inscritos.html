@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Inscritos · Bancada Digital</title>
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap">
+<style>
+:root{--bg:#060c16;--card:#0c1a2a;--line:rgba(127,220,255,.2);--ink:#eef7fd;--mut:#86a0b3;--cyan:#7fe6ff;--green:#1fd17a;--err:#ff7a6b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,system-ui,sans-serif}
+.w{max-width:900px;margin:0 auto;padding:18px 16px 40px}
+h1{font-size:1.3rem;margin:0 0 4px}.m{color:var(--mut);margin:0 0 16px;font-size:.9rem}
+.login{display:flex;gap:8px;flex-wrap:wrap}
+input{flex:1;min-width:200px;height:46px;padding:0 12px;border-radius:12px;border:1.5px solid #24425c;background:#081320;color:var(--ink);font:600 1rem Inter}
+button,.b{height:46px;padding:0 16px;border:0;border-radius:12px;background:var(--green);color:#fff;font:800 .95rem Inter;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+.b2{background:#17324a}
+.e{color:var(--err);font-weight:700;margin-top:8px;display:none}
+.k{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0}
+.k div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.k b{display:block;font-size:1.7rem;letter-spacing:-.02em}.k span{color:var(--mut);font-size:.82rem}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid rgba(127,220,255,.1);font-size:.9rem}
+th{color:var(--mut);font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+td a{color:var(--cyan);font-weight:700;text-decoration:none}
+#app{display:none}
+@media(max-width:600px){td:nth-child(4),th:nth-child(4),td:nth-child(5),th:nth-child(5){display:none}}
+</style>
+</head>
+<body>
+<div class="w">
+  <h1>Inscritos do pré-lançamento</h1>
+  <p class="m">Bancada Digital · página de captura do grupo VIP</p>
+  <form class="login" id="lg"><input id="ch" type="password" placeholder="Chave do painel" autocomplete="current-password"><button>Entrar</button></form>
+  <div class="e" id="er">Chave errada ou sem conexão.</div>
+  <div id="app">
+    <div class="k"><div><b id="kT">0</b><span>inscritos no total</span></div><div><b id="kH">0</b><span>hoje</span></div><div><b id="k24">0</b><span>últimas 24 h</span></div><div><b id="kV">–</b><span>vídeo que mais trouxe</span></div></div>
+    <div class="bar"><button class="b2" id="rf" type="button">Atualizar</button><button id="csv" type="button">Baixar planilha (CSV)</button><span class="m" id="at" style="margin:0"></span></div>
+    <table><thead><tr><th>Quando</th><th>Nome</th><th>WhatsApp</th><th>Vídeo</th><th>Canal</th></tr></thead><tbody id="tb"></tbody></table>
+  </div>
+</div>
+<script>
+const URL_='https://ftpoqrobambnqecmssnj.supabase.co',KEY='sb_publishable_JXFT903pkHesLVO1YlGulQ_8DrLpT28';
+const $=id=>document.getElementById(id);let chave='',rows=[];
+try{chave=sessionStorage.getItem('bd_painel')||''}catch(_){}
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtZap=z=>z.length===11?`(${z.slice(0,2)}) ${z.slice(2,7)}-${z.slice(7)}`:z.length===10?`(${z.slice(0,2)}) ${z.slice(2,6)}-${z.slice(6)}`:z;
+async function carregar(){
+  const r=await fetch(URL_+'/rest/v1/rpc/bd_lista_inscritos',{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},body:JSON.stringify({chave})});
+  if(!r.ok)throw new Error('x');rows=await r.json();desenha();}
+function desenha(){const now=Date.now(),hoje=new Date().toDateString();
+  $('kT').textContent=rows.length;$('kH').textContent=rows.filter(r=>new Date(r.criado_em).toDateString()===hoje).length;
+  $('k24').textContent=rows.filter(r=>now-new Date(r.criado_em)<864e5).length;
+  const c={};rows.forEach(r=>{if(r.origem)c[r.origem]=(c[r.origem]||0)+1});const top=Object.entries(c).sort((a,b)=>b[1]-a[1])[0];$('kV').textContent=top?`v${top[0]} (${top[1]})`:'–';
+  $('tb').innerHTML=rows.map(r=>`<tr><td>${new Date(r.criado_em).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</td><td>${esc(r.nome)}</td><td><a href="https://wa.me/55${esc(r.whatsapp)}" target="_blank" rel="noopener">${esc(fmtZap(r.whatsapp))}</a></td><td>${esc(r.origem||'')}</td><td>${esc(r.canal||'')}</td></tr>`).join('')||'<tr><td colspan="5" style="color:#86a0b3">Ainda não há inscritos.</td></tr>';
+  $('at').textContent='Atualizado às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}
+async function entrar(){try{await carregar();$('lg').style.display='none';$('er').style.display='none';$('app').style.display='block';try{sessionStorage.setItem('bd_painel',chave)}catch(_){}}catch(e){$('er').style.display='block';}}
+$('lg').addEventListener('submit',e=>{e.preventDefault();chave=$('ch').value.trim();entrar();});
+$('rf').addEventListener('click',()=>carregar().catch(()=>{$('er').style.display='block'}));
+$('csv').addEventListener('click',()=>{const q=s=>'"'+String(s??'').replace(/"/g,'""')+'"';
+  const csv='﻿quando;nome;whatsapp;video;canal\n'+rows.map(r=>[new Date(r.criado_em).toLocaleString('pt-BR'),r.nome,r.whatsapp,r.origem,r.canal].map(q).join(';')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='inscritos-bancada-digital.csv';a.click();});
+if(chave)entrar();
+</script>
+</body>
+</html>

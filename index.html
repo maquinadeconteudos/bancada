@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bancada Digital · Grupo VIP do lançamento</title>
+<meta name="description" content="Lançamento da Bancada Digital em 26/11. Inscreva-se e entre no grupo VIP do WhatsApp para receber os horários das lives em primeira mão.">
+<meta name="theme-color" content="#060c16">
+<meta property="og:title" content="Bancada Digital · Grupo VIP do lançamento">
+<meta property="og:description" content="Lançamento 26/11. 3 lives por dia até lá: os horários exatos saem só no grupo.">
+<meta property="og:image" content="og.jpg">
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap">
+<style>
+:root{--bg:#060c16;--ink:#eef7fd;--ink2:#b9cddb;--mut:#7f97aa;--cyan:#7fe6ff;--amber:#ffb020;--green:#1fd17a;--green2:#14b263;--err:#ff7a6b;--line:rgba(127,220,255,.22)}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:radial-gradient(110% 55% at 50% 0%,#12305055,transparent 62%),var(--bg);color:var(--ink);font:15px/1.4 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.pg{min-height:100vh;min-height:100dvh;max-width:440px;margin:0 auto;display:flex;flex-direction:column;padding:max(12px,env(safe-area-inset-top)) 16px max(12px,env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;gap:10px}
+.top img{width:40px;height:40px;border-radius:11px;box-shadow:0 0 0 1px var(--line),0 6px 20px rgba(40,170,255,.25)}
+.top b{font-weight:800;letter-spacing:.06em;font-size:.86rem;white-space:nowrap}
+.top span{margin-left:auto;display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;border:1px solid rgba(255,176,32,.5);background:rgba(255,176,32,.1);color:#ffd27a;font-weight:700;font-size:.62rem;letter-spacing:.1em;white-space:nowrap}
+.top span i{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);animation:pl 1.6s infinite}
+@keyframes pl{50%{opacity:.3}}
+.art{flex:1 1 150px;min-height:96px;max-height:240px;margin:12px 0 0;border-radius:18px;overflow:hidden;position:relative;box-shadow:0 0 0 1px var(--line),0 18px 50px rgba(40,170,255,.18)}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 58%}
+.art:after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(6,12,22,.85))}
+.art .dt{position:absolute;left:12px;bottom:10px;z-index:1;font-weight:800;font-size:1.05rem;letter-spacing:.02em}
+.art .dt em{font-style:normal;color:var(--cyan)}
+h1{margin:12px 0 4px;font-size:clamp(1.35rem,6.2vw,1.65rem);line-height:1.12;letter-spacing:-.02em;font-weight:800}
+h1 em{font-style:normal;color:var(--green)}
+.sub{margin:0;color:var(--ink2);font-size:.92rem}
+.sub b{color:#fff}
+form,#ok{margin-top:12px}
+.fld{position:relative;margin-top:8px}
+input{width:100%;height:48px;padding:0 14px;border-radius:13px;border:1.5px solid #24425c;background:#081320;color:var(--ink);font:600 1rem Inter,sans-serif;outline:none}
+input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(127,230,255,.16)}
+input::placeholder{color:#6b8598;font-weight:500}
+.bad input{border-color:var(--err)}
+.err{display:none;position:absolute;right:12px;top:15px;color:var(--err);font-size:.74rem;font-weight:700;background:#081320;padding-left:6px}
+.bad .err{display:block}
+.aviso{display:flex;gap:9px;align-items:center;margin-top:10px;padding:9px 11px;border-radius:12px;background:rgba(255,176,32,.09);border:1px solid rgba(255,176,32,.45);font-size:.82rem;line-height:1.3;color:#ffe7b8}
+.aviso svg{flex:none;width:19px;height:19px;color:var(--amber)}
+.aviso b{color:#fff}
+.btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:54px;margin-top:10px;border:0;border-radius:15px;background:linear-gradient(90deg,var(--green),var(--green2));color:#fff;font:800 1.02rem Inter,sans-serif;letter-spacing:.01em;cursor:pointer;box-shadow:0 12px 34px rgba(31,209,122,.35);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.btn:active{transform:translateY(1px)}.btn svg{width:22px;height:22px}.btn[disabled]{opacity:.7}
+.priv{margin:8px 0 0;text-align:center;color:var(--mut);font-size:.72rem}
+#ok{display:none;text-align:center;padding:14px;border-radius:16px;background:rgba(12,26,42,.8);border:1px solid var(--line)}
+.steps{display:flex;justify-content:center;gap:6px;font-size:.7rem;font-weight:800;letter-spacing:.06em}
+.steps span{padding:5px 9px;border-radius:999px;background:rgba(31,209,122,.14);color:#8ff0c0}
+.steps span.n2{background:rgba(255,176,32,.16);color:#ffd27a}
+#ok h2{margin:10px 0 2px;font-size:1.2rem}
+#ok p{margin:0;color:var(--ink2);font-size:.88rem}
+#ok .auto{margin-top:8px;color:var(--mut);font-size:.78rem}
+</style>
+</head>
+<body>
+<main class="pg">
+  <div class="top"><img src="logo.webp" alt=""><b>BANCADA DIGITAL</b><span><i></i>PRÉ-LANÇAMENTO</span></div>
+  <div class="art"><img src="pre.webp" alt="A bancada digital com ar-condicionado, multímetro e placa eletrônica em holograma"><div class="dt">Lançamento <em>26/11 · 19:30</em></div></div>
+  <h1>A oficina digital do técnico de ar. <em>Entre no grupo VIP.</em></h1>
+  <p class="sub"><b>3 lives por dia</b> até o lançamento para você ver por dentro e opinar. Os horários exatos saem <b>só no grupo</b>.</p>
+
+  <form id="f" novalidate>
+    <div class="fld" id="fNome"><input id="nome" autocomplete="name" placeholder="Seu nome ou da sua empresa" aria-label="Seu nome ou da sua empresa" maxlength="80"><span class="err">Falta o nome</span></div>
+    <div class="fld" id="fZap"><input id="zap" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="16"><span class="err">Confira o DDD</span></div>
+    <div class="aviso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 8v5M12 16.5h.01"/><circle cx="12" cy="12" r="9.5"/></svg>
+      <div><b>Entrar no grupo do WhatsApp faz parte da inscrição.</b> É lá que saem os horários das lives.</div></div>
+    <button class="btn" id="go" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.4-4.2A8 8 0 1 1 8.6 19z"/><path d="M9 10h6M9 13h4"/></svg><span>ENTRAR NO GRUPO VIP</span></button>
+    <p class="priv">Seus dados ficam só com a Bancada Digital. Sem spam.</p>
+  </form>
+
+  <div id="ok" role="status" aria-live="polite">
+    <div class="steps"><span>1 · INSCRIÇÃO FEITA</span><span class="n2">2 · ENTRAR NO GRUPO</span></div>
+    <h2 id="okT">Falta só um passo</h2>
+    <p>Entre no grupo para receber os horários das lives.</p>
+    <a class="btn" id="zapBtn" href="#" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.4-4.2A8 8 0 1 1 8.6 19z"/><path d="M9 10h6M9 13h4"/></svg>ENTRAR NO GRUPO AGORA</a>
+    <p class="auto" id="auto">Abrindo o WhatsApp em <b id="cd">3</b>…</p>
+  </div>
+</main>
+<script>
+const CFG={
+  grupo:'https://chat.whatsapp.com/DGbcli1IngzAGVj0lQnCvI',
+  url:'https://ftpoqrobambnqecmssnj.supabase.co',
+  key:'sb_publishable_JXFT903pkHesLVO1YlGulQ_8DrLpT28' /* chave pública: só permite gravar inscrição */
+};
+const $=id=>document.getElementById(id);
+const qs=new URLSearchParams(location.search);
+const origem=(qs.get('v')||qs.get('utm_content')||qs.get('src')||'').slice(0,40);
+let canal='direto';try{canal=qs.get('utm_source')||(document.referrer?new URL(document.referrer).hostname:'direto')}catch(_){}
+$('zapBtn').href=CFG.grupo;
+$('zap').addEventListener('input',e=>{const d=e.target.value.replace(/\D/g,'').slice(0,11);let o=d;
+  if(d.length>2)o='('+d.slice(0,2)+') '+d.slice(2);if(d.length>6)o='('+d.slice(0,2)+') '+d.slice(2,d.length-4)+'-'+d.slice(-4);e.target.value=o;});
+['nome','zap'].forEach(i=>$(i).addEventListener('input',()=>$(i==='nome'?'fNome':'fZap').classList.remove('bad')));
+function ok(id,c){$(id).classList.toggle('bad',!c);return c;}
+async function salvar(d){const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),6000);
+  try{const r=await fetch(CFG.url+'/rest/v1/bd_inscritos',{method:'POST',signal:ctl.signal,headers:{apikey:CFG.key,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(d)});return r.ok;}
+  catch(e){return false}finally{clearTimeout(tm)}}
+$('f').addEventListener('submit',async e=>{e.preventDefault();
+  const nome=$('nome').value.trim().replace(/\s+/g,' '),zap=$('zap').value.replace(/\D/g,'');
+  const v=[ok('fNome',nome.length>=2),ok('fZap',zap.length>=10&&zap.length<=11)];
+  if(v.includes(false)){const b=document.querySelector('.bad input');if(b)b.focus();return;}
+  $('go').disabled=true;$('go').querySelector('span').textContent='SALVANDO…';
+  await salvar({nome:nome.slice(0,80),whatsapp:zap,origem:origem||null,canal:(canal||'').slice(0,60)});
+  try{localStorage.setItem('bd_inscrito','1')}catch(_){}
+  $('f').style.display='none';$('ok').style.display='block';$('okT').textContent=nome.split(' ')[0]+', falta só um passo';
+  let n=3;const it=setInterval(()=>{n--;$('cd').textContent=n;if(n<=0){clearInterval(it);$('auto').textContent='Se o WhatsApp não abriu, toque no botão verde.';location.href=CFG.grupo;}},1000);
+});
+</script>
+</body>
+</html>
