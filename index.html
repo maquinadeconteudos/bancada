@@ -83,8 +83,8 @@ input::placeholder{color:#6b8598;font-weight:500}
 <script>
 const CFG={
   grupo:'https://chat.whatsapp.com/DGbcli1IngzAGVj0lQnCvI',
-  url:'https://ftpoqrobambnqecmssnj.supabase.co',
-  key:'sb_publishable_JXFT903pkHesLVO1YlGulQ_8DrLpT28' /* chave pública: só permite gravar inscrição */
+  form:'https://docs.google.com/forms/d/e/1FAIpQLSeP04AsQsegkN9XCmjEy5BJ_Cp6C6ylxDrJdZgRi-UCQE5TtQ/formResponse',
+  campos:{nome:'entry.574428162',whatsapp:'entry.1288197493',origem:'entry.1757437512'}
 };
 const $=id=>document.getElementById(id);
 const qs=new URLSearchParams(location.search);
@@ -95,9 +95,10 @@ $('zap').addEventListener('input',e=>{const d=e.target.value.replace(/\D/g,'').s
   if(d.length>2)o='('+d.slice(0,2)+') '+d.slice(2);if(d.length>6)o='('+d.slice(0,2)+') '+d.slice(2,d.length-4)+'-'+d.slice(-4);e.target.value=o;});
 ['nome','zap'].forEach(i=>$(i).addEventListener('input',()=>$(i==='nome'?'fNome':'fZap').classList.remove('bad')));
 function ok(id,c){$(id).classList.toggle('bad',!c);return c;}
-async function salvar(d){const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),6000);
-  try{const r=await fetch(CFG.url+'/rest/v1/bd_inscritos',{method:'POST',signal:ctl.signal,headers:{apikey:CFG.key,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(d)});return r.ok;}
-  catch(e){return false}finally{clearTimeout(tm)}}
+async function salvar(d){const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),5000);
+  const f=new URLSearchParams();f.append(CFG.campos.nome,d.nome);f.append(CFG.campos.whatsapp,d.whatsapp);f.append(CFG.campos.origem,[d.origem||'direto',d.canal].filter(Boolean).join(' · '));
+  try{await fetch(CFG.form,{method:'POST',mode:'no-cors',signal:ctl.signal,body:f});return true;}
+  catch(e){try{navigator.sendBeacon(CFG.form,f)}catch(_){}return false}finally{clearTimeout(tm)}}
 $('f').addEventListener('submit',async e=>{e.preventDefault();
   const nome=$('nome').value.trim().replace(/\s+/g,' '),zap=$('zap').value.replace(/\D/g,'');
   const v=[ok('fNome',nome.length>=2),ok('fZap',zap.length>=10&&zap.length<=11)];
